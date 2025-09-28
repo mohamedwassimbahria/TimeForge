@@ -1,0 +1,70 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 space-y-6">
+    <h2 class="text-2xl font-extrabold text-center text-slate-800">
+      🔮 Prédiction de Récompense
+    </h2>
+
+    <!-- Animation de chargement -->
+    <div class="ML-animation" *ngIf="showAnimation">
+      <dotlottie-player
+        src="https://lottie.host/45f3c123-745b-425c-8491-7aaabf67c70c/jOtTL2NQky.lottie"
+        background="transparent"
+        speed="2"
+        style="width: 50%; height: 50%"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
+
+    <!-- Formulaire de prédiction -->
+    <form (ngSubmit)="predict()" [formGroup]="form" class="space-y-4">
+      <div>
+        <label class="block text-slate-600 font-semibold mb-1" for="start_date">Start Date</label>
+        <input
+          id="start_date"
+          type="date"
+          formControlName="start_date"
+          class="input-field"
+          placeholder="YYYY-MM-DD"
+        />
+        <div *ngIf="form.get('start_date') && form.get('start_date')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="form.get('start_date')?.hasError('required')">Le champ 'start_date' est requis</small>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-slate-600 font-semibold mb-1" for="end_date">End Date</label>
+        <input
+          id="end_date"
+          type="date"
+          formControlName="end_date"
+          class="input-field"
+          placeholder="YYYY-MM-DD"
+        />
+        <div *ngIf="form.get('end_date') && form.get('end_date')?.invalid" class="text-red-500 text-sm mt-1">
+          <small *ngIf="form.get('end_date')?.hasError('required')">Le champ 'end_date' est requis</small>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-button w-full py-2 px-4 rounded bg-blue-500 text-white font-semibold mt-4 disabled:opacity-50"
+        [disabled]="form.invalid"
+      >
+        🔍 Prédire
+      </button>
+    </form>
+
+    <!-- Résultat de la prédiction -->
+    <div *ngIf="prediction" class="result success mt-4">
+      <h3 class="font-bold">Résultat :</h3>
+      <p>{{ prediction }}</p>
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="result error mt-4 text-red-600">
+      <h3 class="font-bold">Erreur :</h3>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<nav class="navbar">
+    <div class="nav-logo">
+      <a routerLink="/" class="logo">Time Forge App</a>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/dashboard" routerLinkActive="active">Home</a></li>
+      <li><a routerLink="/tasks" routerLinkActive="active">Tasks</a></li>
+      <li><a routerLink="/calender" routerLinkActive="active">Calender</a></li>
+      <li><a routerLink="/login" routerLinkActive="active">LogOut</a></li>
+    </ul>
+  </nav>
+    <h2 class="text-center mb-4" style="color: #004085; font-weight: bold;">🧮 List of Boards</h2>
+  
+    <div class="export-buttons">
+      <button class="btn btn-success" (click)="exportToExcel()" aria-label="Export as Excel">
+        <i class="fas fa-file-excel"></i> Export Excel
+      </button>
+      <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchText"
+        placeholder="Search Project..."
+      />
+      <button class="btn btn-danger" (click)="exportToPDF()" aria-label="Export as PDF">
+        <i class="fas fa-file-pdf"></i> Export PDF
+      </button>
+    </div>
+  
+    <div class="d-flex justify-content-center mb-4">
+  
+      <button class="btn btn-primary" [routerLink]="['/boards/add']">
+        ➕ Add Board
+      </button>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Project</th>
+            <th>Actions</th>
+
+        
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let board of boards">
+            <td>{{ board.title }}</td>
+            <td>{{ board.description }}</td>
+            <td>{{ board.project.title }}</td>
+            <td data-label="Actions">
+              <div class="btn-container">
+                <button class="btn btn-warning btn-sm" [routerLink]="['/boards/edit', board._id]">
+                  🖊️ Edit
+                </button>
+                <button class="btn btn-danger" (click)="deleteBoard(board._id)">
+                  🗑️ Remove
+                </button>
+               
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  

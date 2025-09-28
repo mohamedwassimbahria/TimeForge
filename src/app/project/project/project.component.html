@@ -1,0 +1,89 @@
+<div class="exit-button-container mb-3">
+  <button class="btn btn-secondary exit-button" [routerLink]="['/projectDash']">
+    <i class="bi bi-box-arrow-left me-2"></i> 
+  </button>
+</div>
+
+<h2 class="text-center mb-4" style="color: #004085; font-weight: bold;">
+  📋 Liste of Projects
+</h2>
+
+<!-- 🎞️ Animation Lottie -->
+<div class="project-animation" *ngIf="showAnimation">
+  <dotlottie-player
+    src="https://lottie.host/72a0e417-72e7-42d9-a8d4-27b6bc9a4d36/C1JRRxxzGU.lottie"
+    background="transparent"
+    speed="2"
+    style="width: 550px; height: 550px"
+    loop
+    autoplay>
+  </dotlottie-player>
+</div>
+
+<div class="export-buttons">
+  <button class="btn btn-success" (click)="exportToExcel()" aria-label="Export as Excel">
+    <i class="fas fa-file-excel"></i> Export Excel
+  </button>
+
+  <input
+    type="text"
+    class="search-input"
+    [(ngModel)]="searchText"
+    placeholder="Search Project..."
+  />
+
+  <button class="btn btn-danger" (click)="exportToPDF()" aria-label="Export as PDF">
+    <i class="fas fa-file-pdf"></i> Export PDF
+  </button>
+</div>
+
+<!-- ➕ Ajouter un projet -->
+<div class="d-flex justify-content-center mb-4">
+  <button class="btn-add btn-primary" [routerLink]="['/projects/add']">
+    ➕ Add Project
+  </button>
+
+</div>
+
+<!-- 📊 Tableau de projets -->
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td>{{ project.title }}</td>
+        <td>{{ project.description }}</td>
+        <td>{{ project.startDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ project.endDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ project.category }}</td>
+        <td data-label="Actions">
+          <div class="btn-container">
+            <button class="btn btn-warning btn-sm" [routerLink]="['/projects/edit', project.project_id]">
+              🖊️ 
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteProject(project.project_id)">
+              🗑️
+            </button>
+            <button class="btn btn-info btn-sm" [routerLink]="['/projects/view', project.project_id]">
+              👁️
+            </button>
+            <button class="btn btn-success btn-sm" [routerLink]="['/kanban', project.project_id]">
+              📋
+            </button>
+           
+            
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

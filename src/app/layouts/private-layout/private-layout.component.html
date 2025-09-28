@@ -1,0 +1,123 @@
+<!-- Main Layout Wrapper -->
+<div class="d-flex" id="wrapper">
+
+  <!-- Page Content -->
+  <div id="page-content-wrapper" class="w-100">
+
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary border-bottom">
+      <div class="container-fluid">
+        <!-- Sidebar Toggle Button -->
+        <button class="btn btn-light me-3" (click)="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Branding -->
+        <a class="navbar-brand" href="#">Welcome, {{ user?.name }}</a>
+
+        <!-- Navbar Toggler for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible Content -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+          <ul class="navbar-nav align-items-center">
+
+            <a routerLink="/menu" class="nav-link" title="Home">
+              <i class="fas fa-home"></i>
+            </a>
+
+            <!-- Messenger Icon -->
+            <li class="nav-item me-3">
+              <a routerLink="/collaborations" class="nav-link text-white" title="Messenger">
+                <i class="fas fa-comments fa-lg"></i>
+              </a>
+            </li>
+
+            <!-- Digital Clock -->
+            <li class="nav-item me-3">
+              <div class="digital-clock">
+                🕒 {{ currentTime }}
+              </div>
+            </li>
+
+            <a href="https://maps.app.goo.gl/8dkHxZwisTWXMwhy9"
+               class="nav-link d-flex align-items-center"
+               target="_blank"
+               rel="noopener noreferrer"
+               title="View ESprit School of Engineering on Google Maps">
+              <i class="fas fa-map-marker-alt me-1"></i>Esprit
+            </a>
+
+
+
+            <li class="nav-item dropdown">
+              <a *ngIf="user"
+                 class="nav-link dropdown-toggle"
+                 [ngClass]="hasNewNotification ? 'text-danger' : 'text-white'"
+                 href="#"
+                 id="notificationDropdown"
+                 role="button"
+                 data-bs-toggle="dropdown"
+                 aria-expanded="false"
+                 (click)="onNotificationDropdownClick()">
+                <i class="fas fa-bell"></i> Notifications
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-scrollable" aria-labelledby="notificationDropdown">
+                <li *ngFor="let notification of notifications" style="  cursor: pointer;">
+                  <a class="dropdown-item" (click)="getCollabById(notification.chatContextId!)">
+                    <i class="fas fa-info-circle me-2 text-success"></i> you received a message: {{notification.content}}
+                  </a>
+                </li>
+                <li *ngIf="(notifications)?.length === 0">
+                  <span class="dropdown-item text-muted">No notifications</span>
+                </li>
+              </ul>
+
+            </li>
+
+            <!-- User Dropdown -->
+            <li class="nav-item dropdown">
+              <a *ngIf="user" class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="navbarDropdown"
+                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <!-- Profile Photo or Icon -->
+                <img *ngIf="getPhotoUrl(); else placeholder"
+                     [src]="getPhotoUrl()"
+                     alt="Profile Photo"
+                     class="rounded-circle me-2"
+                     style="width: 30px; height: 30px; object-fit: cover;">
+                <ng-template #placeholder>
+                  <i class="fas fa-user-circle fa-lg me-2"></i>
+                </ng-template>
+                {{ user.name }}
+              </a>
+
+              <!-- Dropdown Menu -->
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/users', user.id]">
+                    <i class="fas fa-user me-2"></i> Profile
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" (click)="logout()">
+                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                  </a>
+                </li>
+              </ul>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Router Outlet Content -->
+    <div class="container-fluid py-4">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
+</div>

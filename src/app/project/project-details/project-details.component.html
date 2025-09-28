@@ -1,0 +1,35 @@
+<!-- Bouton ajouter tâche -->
+<button class="btn-add" [routerLink]="['/tasks/']">
+  ➕ Add Task
+</button>
+
+<div class="task-container">
+  <h2 class="task-title">🗂️ Tasks for Project</h2>
+
+  <div class="task-table-wrapper">
+    <table class="task-table">
+      <thead>
+        <tr>
+          <th><i class="fas fa-tasks"></i> Task Name</th>
+          <th><i class="fas fa-align-left"></i> Description</th>
+          <th><i class="fas fa-calendar-alt"></i> Due Date</th>
+          <th><i class="fas fa-clock"></i> Created Date</th>
+          <th><i class="fas fa-exclamation-circle"></i> Priority</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td>{{ task.name }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.dueDate | date:'yyyy-MM-dd' }}</td>
+          <td>{{ task.createdAt | date:'yyyy-MM-dd' }}</td>
+          <td>
+            <span class="priority" [ngClass]="task.priority.toLowerCase()">
+              {{ task.priority }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

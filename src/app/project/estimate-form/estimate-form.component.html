@@ -1,0 +1,39 @@
+<div class="estimate-form card shadow-lg rounded-4 p-4 bg-light animate__animated animate__fadeIn">
+  <h4 class="mb-4 text-primary d-flex align-items-center">
+    <i class="fas fa-chart-line me-2"></i> Project Estimation Form
+  </h4>
+
+  <div class="form-group mb-3">
+    <label class="fw-semibold">Project Description</label>
+    <textarea class="form-control rounded-3 shadow-sm" [(ngModel)]="project.description" rows="5" placeholder="Describe your project..."></textarea>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="fw-semibold">Start Date</label>
+      <input type="date" class="form-control rounded-3 shadow-sm" [(ngModel)]="project.startDate">
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="fw-semibold">End Date</label>
+      <input type="date" class="form-control rounded-3 shadow-sm" [(ngModel)]="project.endDate">
+    </div>
+  </div>
+
+  <div class="form-group mb-4">
+    <label class="fw-semibold">Project Category</label>
+    <select class="form-select rounded-3 shadow-sm" [(ngModel)]="project.category">
+      <option value="" disabled selected>Select a category</option>
+      <option *ngFor="let cat of getProjectCategories()" [value]="cat">{{ cat }}</option>
+    </select>
+  </div>
+
+  <div class="text-end">
+    <button class="btn btn-lg btn-primary px-4 shadow" (click)="requestEstimate()" [disabled]="isLoading">
+      <i class="fas fa-magic me-2" *ngIf="!isLoading"></i>
+      <i class="fas fa-spinner fa-spin me-2" *ngIf="isLoading"></i>
+      {{ isLoading ? 'Estimating...' : 'Estimate Project' }}
+    </button>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger mt-4">{{ error }}</div>
+</div>

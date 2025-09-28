@@ -1,0 +1,47 @@
+<!-- src/app/components/time-tracker/time-tracker.component.html -->
+<div class="time-tracker-container">
+  <h2>Time Tracker</h2>
+
+  <div *ngIf="!isTimerRunning" class="timer-controls">
+    <div class="form-group">
+      <label for="activity">Activity Description</label>
+      <input type="text" id="activity" [(ngModel)]="currentActivity" class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="project">Project ID (optional)</label>
+      <input type="text" id="project" [(ngModel)]="currentProjectId" class="form-control">
+    </div>
+
+    <button (click)="startTimer()" class="btn btn-primary">Start Timer</button>
+  </div>
+
+  <div *ngIf="isTimerRunning" class="timer-controls">
+    <p>Currently tracking: {{ currentActivity }}</p>
+    <button (click)="stopTimer()" class="btn btn-danger">Stop Timer</button>
+  </div>
+
+  <div class="time-logs">
+    <h3>Your Time Logs</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Activity</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Duration (minutes)</th>
+        <th>Project</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let log of timeLogs">
+        <td>{{ log.activityDescription }}</td>
+        <td>{{ log.startTime | date:'medium' }}</td>
+        <td>{{ log.endTime ? (log.endTime | date:'medium') : 'In Progress' }}</td>
+        <td>{{ log.durationMinutes || 'N/A' }}</td>
+        <td>{{ log.projectId || 'N/A' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

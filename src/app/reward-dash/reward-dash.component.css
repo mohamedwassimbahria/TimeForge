@@ -1,0 +1,101 @@
+/* Conteneur principal */
+.container-fluid {
+  background-color: #bbccf1;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* Style de la carte de navigation */
+.icon-card {
+  display: block;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+  color: #333;
+  height: 150px;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  margin-top: 150px;
+}
+
+.icon-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Icônes */
+.icon-card i {
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.icon-card:hover i {
+  color: #ff6f61;
+}
+
+/* Texte sous l'icône */
+.icon-card div {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+/* Style lorsque le lien est actif */
+.icon-card.active {
+  border: 2px solid #007bff;
+  background-color: #e8f0fe;
+}
+
+/* Mise en page des colonnes */
+.row.g-4 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Responsivité - Cartes plus petites sur mobile */
+@media (max-width: 767px) {
+  .col-6 {
+    width: 100%;
+  }
+}
+
+/* Effet de transition pour les liens */
+a {
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  border-radius: 8px;
+}
+/* Conteneur principal avec dégradé animé */
+.container-fluid {
+  background: linear-gradient(45deg, #6e7fcd, #a7b5e2, #ff6f61, #f8b400);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  height: 865px;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

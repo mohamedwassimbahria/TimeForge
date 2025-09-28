@@ -1,0 +1,98 @@
+<div class="estimation-container">
+  <div class="estimation-header">
+    <h3 class="ai-title">
+      <i class="fas fa-robot"></i>
+      Task Report
+      <span class="ai-badge">AI-Powered Analysis</span>
+    </h3>
+    <button class="refresh-btn" (click)="loadEstimation()" [disabled]="isLoading">
+      <i class="fas fa-sync-alt"></i>
+    </button>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="pulse-loader">
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+      <div class="pulse-dot"></div>
+    </div>
+    <p class="loading-text">Analyzing task patterns...</p>
+  </div>
+
+  <div *ngIf="estimation" class="estimation-grid">
+    <!-- Urgency Card -->
+    <div class="estimation-card urgency">
+      <div class="card-content">
+        <div class="metric-header">
+          <i class="fas fa-burn"></i>
+          <h4>Urgency Level</h4>
+        </div>
+        <div class="radial-progress" [style.--progress]="estimation.urgencyScore * 10">
+          <span class="progress-value">{{ estimation.urgencyScore | number:'1.1-1' }}</span>
+        </div>
+        <div class="sparkline-bar">
+          <div class="sparkline-fill" [style.width.%]="estimation.urgencyScore * 10"></div>
+        </div>
+      </div>
+    </div>
+
+<!-- Success Probability -->
+<div class="estimation-card probability clean-view">
+  <div class="card-content">
+    <div class="metric-header">
+      <i class="fas fa-percentage"></i>
+      <h4>Success Probability</h4>
+    </div>
+    <div class="success-percent-value">
+      {{ estimation.completionProbability | number:'1.0-0' }}%
+    </div>
+  </div>
+</div>
+
+
+    <!-- Recommendation Card -->
+    <div class="estimation-card recommendation">
+      <div class="card-content">
+        <div class="metric-header">
+          <i class="fas fa-lightbulb"></i>
+          <h4>AI Recommendation</h4>
+        </div>
+        <div class="recommendation-content">
+          <p class="recommendation-text">{{ estimation.recommendedAction }}</p>
+          <div class="confidence-level">
+            <i class="fas fa-brain"></i>
+            Confidence: {{ estimation.completionProbability | number:'1.0-0' }}%
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Time Estimation -->
+    <div class="estimation-card timeline">
+      <div class="card-content">
+        <div class="metric-header">
+          <i class="fas fa-hourglass-half"></i>
+          <h4>Time Analysis</h4>
+        </div>
+        <div class="time-bubble">
+          {{ estimation.timeEstimate }}
+        </div>
+        <div class="timeline-visual">
+          <div class="time-marker created">
+            <span>Created</span>
+            {{ task.createdAt | date:'shortDate' }}
+          </div>
+          <div class="time-marker due">
+            <span>Due</span>
+            {{ task.dueDate | date:'shortDate' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ error }}</span>
+  </div>
+</div>

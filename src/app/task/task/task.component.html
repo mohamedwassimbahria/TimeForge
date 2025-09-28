@@ -1,0 +1,87 @@
+<div class="exit-button-container mb-3">
+  <button class="btn btn-secondary exit-button" [routerLink]="['/projects']">
+    <i class="bi bi-box-arrow-left me-2"></i> 
+  </button>
+</div>
+<h2 class="text-center mb-4" style="color: #004085; font-weight: bold;">
+  ✅ Liste of Tasks
+</h2>
+
+<!-- 🎞️ Animation -->
+<div class="task-animation" *ngIf="showAnimation">
+  <dotlottie-player
+    src="https://lottie.host/4acee261-a72c-42ab-b8f3-bb6b5eb1a456/w0c0OfWoJd.lottie"
+    background="transparent"
+    speed="1"
+    style="width: 550px; height: 550px"
+    loop
+    autoplay>
+  </dotlottie-player>
+</div>
+
+<!-- 🔄 Export + Search -->
+<div class="export-buttons mb-3 d-flex flex-wrap align-items-center gap-2">
+  <button class="btn btn-success" (click)="exportToExcel()" aria-label="Export as Excel">
+    <i class="fas fa-file-excel"></i> Export Excel
+  </button>
+
+  <input
+    type="text"
+    class="form-control search-input"
+    [(ngModel)]="searchText"
+    placeholder="Search Tasks..."
+  />
+
+  <button class="btn btn-danger" (click)="exportToPDF()" aria-label="Export as PDF">
+    <i class="fas fa-file-pdf"></i> Export PDF
+  </button>
+
+</div>
+
+<!-- ➕ Ajouter une tâche -->
+<div class="d-flex justify-content-center mb-4">
+  <button class="btn-add btn-primary" [routerLink]="['/tasks/add']">
+    ➕ Add Task
+  </button>
+
+</div>
+
+<!-- 📋 Tableau des tâches -->
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Created Date</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.name }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.createdAt | date:'yyyy-MM-dd' }}</td>
+        <td>{{ task.dueDate | date:'yyyy-MM-dd' }}</td>
+        <td>{{ task.priority }}</td>
+        <td>
+          <div class="btn-container d-flex gap-2">
+            <button class="btn btn-info btn-sm" (click)="onViewTask(task)">
+              👁️
+            </button>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/tasks/edit', task._id]">
+              🖊️
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteTask(task._id)">
+              🗑️
+            </button>
+     
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

@@ -1,0 +1,67 @@
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4 border-0">
+    <div class="card-body p-5">
+      <h2 class="text-center mb-4 text-primary fw-bold">
+        {{ isEdit ? '🛠️ Update' : '🆕 Create' }} a Column
+      </h2>
+
+      <form #columnForm="ngForm" (ngSubmit)="saveColumn(columnForm)" novalidate>
+
+        <!-- Column Name -->
+        <div class="mb-4">
+          <label for="name" class="form-label fw-semibold">📌 Column Name</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control shadow-sm"
+            [(ngModel)]="column.name"
+            name="name"
+            required
+            minlength="3"
+            maxlength="50"
+            placeholder="e.g., To Do, In Progress, Done"
+            #nameCtrl="ngModel"
+            [class.is-invalid]="nameCtrl.invalid && nameCtrl.touched"
+          />
+          <div class="invalid-feedback" *ngIf="nameCtrl.invalid && nameCtrl.touched">
+            <p *ngIf="nameCtrl.errors?.['required']">Column name is required.</p>
+            <p *ngIf="nameCtrl.errors?.['minlength']">Minimum 3 characters required.</p>
+            <p *ngIf="nameCtrl.errors?.['maxlength']">Maximum 50 characters allowed.</p>
+          </div>
+        </div>
+
+        <!-- Column Order -->
+        <div class="mb-4">
+          <label for="order" class="form-label fw-semibold">🔢 Order</label>
+          <input
+            type="number"
+            id="order"
+            class="form-control shadow-sm"
+            [(ngModel)]="column.order"
+            name="order"
+            required
+            min="0"
+            placeholder="Enter column order (e.g., 0, 1, 2...)"
+            #orderCtrl="ngModel"
+            [class.is-invalid]="orderCtrl.invalid && orderCtrl.touched"
+          />
+          <div class="invalid-feedback" *ngIf="orderCtrl.invalid && orderCtrl.touched">
+            <p *ngIf="orderCtrl.errors?.['required']">Order is required.</p>
+            <p *ngIf="orderCtrl.errors?.['min']">Order must be 0 or higher.</p>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-container">
+          <button type="submit" class="btn btn-custom btn-save" [disabled]="columnForm.invalid">
+            💾 {{ isEdit ? 'Update' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-custom btn-cancel" (click)="router.navigate(['/columns'])">
+            ❌ Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

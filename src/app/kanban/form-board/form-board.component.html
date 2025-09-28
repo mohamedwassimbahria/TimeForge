@@ -1,0 +1,89 @@
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4 border-0">
+    <div class="card-body p-5">
+      <h2 class="text-center mb-4 text-primary fw-bold">
+        {{ isEdit ? '🛠️ Update' : '🆕 Create' }} a Board
+      </h2>
+
+      <form #boardForm="ngForm" (ngSubmit)="saveBoard()" novalidate>
+
+        <!-- Projet lié -->
+        <div class="mb-4">
+          <label for="project" class="form-label fw-semibold">📁 Project</label>
+          <select
+            id="project"
+            class="form-select shadow-sm"
+            [(ngModel)]="board.project"
+            name="project"
+            required
+            #projectCtrl="ngModel"
+            [class.is-invalid]="projectCtrl.invalid && projectCtrl.touched"
+          >
+            <option value="" disabled selected>Select a project</option>
+            <option *ngFor="let project of projects" [ngValue]="project">
+              {{ project.title }}
+            </option>
+          </select>
+          <div class="invalid-feedback" *ngIf="projectCtrl.invalid && projectCtrl.touched">
+            Project selection is required.
+          </div>
+        </div>
+
+        <!-- Titre -->
+        <div class="mb-4">
+          <label for="title" class="form-label fw-semibold">🏷️ Board Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control shadow-sm"
+            [(ngModel)]="board.title"
+            name="title"
+            required
+            minlength="3"
+            maxlength="50"
+            placeholder="e.g., Sprint Backlog"
+            #titleCtrl="ngModel"
+            [class.is-invalid]="titleCtrl.invalid && titleCtrl.touched"
+          />
+          <div class="invalid-feedback" *ngIf="titleCtrl.invalid && titleCtrl.touched">
+            <p *ngIf="titleCtrl.errors?.['required']">Board title is required.</p>
+            <p *ngIf="titleCtrl.errors?.['minlength']">Minimum 3 characters required.</p>
+            <p *ngIf="titleCtrl.errors?.['maxlength']">Maximum 50 characters allowed.</p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+          <label for="description" class="form-label fw-semibold">📝 Description</label>
+          <textarea
+            id="description"
+            class="form-control shadow-sm"
+            [(ngModel)]="board.description"
+            name="description"
+            placeholder="Describe the purpose of this board"
+            required
+            minlength="10"
+            rows="3"
+            #descCtrl="ngModel"
+            [class.is-invalid]="descCtrl.invalid && descCtrl.touched"
+          ></textarea>
+          <div class="invalid-feedback" *ngIf="descCtrl.invalid && descCtrl.touched">
+            <p *ngIf="descCtrl.errors?.['required']">Description is required.</p>
+            <p *ngIf="descCtrl.errors?.['minlength']">Minimum 10 characters required.</p>
+          </div>
+        </div>
+
+        <!-- Boutons -->
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <button type="submit" class="btn btn-success btn-lg px-4" [disabled]="boardForm.invalid">
+            💾 {{ isEdit ? 'Update' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="router.navigate(['/boards'])">
+            ❌ Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,94 @@
+#wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  height: 100vh;
+  transition: all 0.3s;
+}
+
+#wrapper.toggled .sidebar {
+  margin-left: -250px;
+}
+
+#page-content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    margin-left: -250px;
+  }
+
+  #wrapper.toggled .sidebar {
+    margin-left: 0;
+  }
+}
+/* Style for the profile dropdown */
+.dropdown-toggle::after {
+  display: none; /* Hide default dropdown arrow */
+}
+
+/* Profile photo styling */
+.navbar .dropdown-menu {
+  min-width: 200px;
+}
+.nav-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: rgba(0, 18, 41, 0.06);
+  font-size: 24px;
+  right: 300px;
+}
+
+.nav-link:hover {
+  color: #89c1df;
+}
+.digital-clock {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  color: rgb(5, 5, 5);
+  background: linear-gradient(135deg, #b8cbda, #d8ccf6);
+  padding: 6px 14px;
+  border-radius: 12px;
+  border: 1px solid rgb(255, 255, 255);
+  box-shadow: 0 4px 12px rgb(60, 153, 241), inset 0 0 8px rgb(0, 187, 253);
+  letter-spacing: 1.5px;
+  animation: glowPulse 3s infinite ease-in-out;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+}
+
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 8px rgba(234, 241, 251, 0.88), inset 0 0 4px rgb(0, 139, 252);
+  }
+  50% {
+    box-shadow: 0 0 16px rgb(0, 139, 252), inset 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.6), inset 0 0 4px rgb(255, 255, 255);
+  }
+}
+.nav-link {
+  color: #ffffff;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+  transform: scale(1.2);
+  color: #b3ddf4; /* Jaune doré au survol */
+}

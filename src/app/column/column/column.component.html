@@ -1,0 +1,71 @@
+<!-- ✅ Barre de navigation (déjà bien faite) -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <a routerLink="/" class="logo">Time Forge App</a>
+  </div>
+  <ul class="nav-links">
+    <li><a routerLink="/dashboard" routerLinkActive="active">Home</a></li>
+    <li><a routerLink="/projects" routerLinkActive="active">Projects</a></li>
+    <li><a routerLink="/login" routerLinkActive="active">LogOut</a></li>
+  </ul>
+</nav>
+
+<!-- 🧱 Titre -->
+<h2 class="text-center mb-4" style="color: #004085; font-weight: bold;">
+  🧱 Liste des Colonnes
+</h2>
+
+
+<!-- 🔄 Export + Recherche -->
+<div class="export-buttons mb-3 d-flex flex-wrap align-items-center gap-2">
+  <button class="btn btn-success" (click)="exportToExcel()" aria-label="Export as Excel">
+    <i class="fas fa-file-excel"></i> Export Excel
+  </button>
+
+  <input
+    type="text"
+    class="form-control search-input"
+    [(ngModel)]="searchText"
+    placeholder="Search column..."
+  />
+
+  <button class="btn btn-danger" (click)="exportToPDF()" aria-label="Export as PDF">
+    <i class="fas fa-file-pdf"></i> Export PDF
+  </button>
+</div>
+
+<!-- ➕ Ajouter colonne -->
+<div class="d-flex justify-content-center mb-4">
+  <button class="btn btn-primary" [routerLink]="['/columns/add']">
+    ➕ Add Column
+  </button>
+</div>
+
+<!-- 📋 Tableau des colonnes -->
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Order</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let column of columns">
+        <td>{{ column.name }}</td>
+        <td>{{ column.order }}</td>
+        <td>
+          <div class="btn-container d-flex gap-2">
+            <button class="btn btn-warning btn-sm" [routerLink]="['/columns/edit', column._id]">
+              🖊️ Edit
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteColumn(column._id)">
+              🗑️ Remove
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

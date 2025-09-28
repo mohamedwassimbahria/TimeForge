@@ -1,0 +1,118 @@
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4 border-0">
+    <div class="card-body p-5">
+      <h2 class="text-center mb-4 text-primary fw-bold">
+        {{ isEdit ? '📝 Update' : '🆕 Create' }} a Task
+      </h2>
+
+      <form #projectForm="ngForm" (ngSubmit)="saveTask()" novalidate>
+
+        Project Selection
+        <div class="mb-4">
+          <label for="project" class="form-label fw-semibold">📁 Project</label>
+          <select
+            id="project"
+            class="form-select shadow-sm"
+            [(ngModel)]="task.project"
+            name="project"
+            required
+          >
+            <option *ngFor="let project of projects" [ngValue]="project">
+              {{ project.title }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Task Title -->
+        <div class="mb-4">
+          <label for="title" class="form-label fw-semibold">📝 Task Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control shadow-sm"
+            [(ngModel)]="task.name"
+            name="title"
+            required
+            minlength="3"
+            #titleCtrl="ngModel"
+            [class.is-invalid]="titleCtrl.invalid && titleCtrl.touched"
+            placeholder="e.g., Design Login Page"
+          />
+          <div class="invalid-feedback" *ngIf="titleCtrl.invalid && titleCtrl.touched">
+            <p *ngIf="titleCtrl.errors?.['required']">Task title is required.</p>
+            <p *ngIf="titleCtrl.errors?.['minlength']">Minimum 3 characters required.</p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+          <label for="description" class="form-label fw-semibold">🗒️ Description</label>
+          <textarea
+            id="description"
+            class="form-control shadow-sm"
+            rows="3"
+            [(ngModel)]="task.description"
+            name="description"
+            placeholder="Provide a brief description of the task"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Priority -->
+        <div class="mb-4">
+          <label for="priority" class="form-label fw-semibold">⚠️ Priority</label>
+          <select
+            id="priority"
+            class="form-select shadow-sm"
+            [(ngModel)]="task.priority"
+            name="priority"
+            required
+          >
+            <option value="LOW">🟢 LOW</option>
+            <option value="MEDIUM">🟡 MEDIUM</option>
+            <option value="HIGH">🔴 HIGH</option>
+            <option value="URGENT">🚨 URGENT</option>
+          </select>
+        </div>
+
+        <!-- Created Date -->
+        <div class="mb-4">
+          <label for="createdAt" class="form-label fw-semibold">📅 Created Date</label>
+          <input
+            type="date"
+            id="createdAt"
+            class="form-control shadow-sm"
+            [(ngModel)]="task.createdAt"
+            name="createdAt"
+            required
+          />
+        </div>
+
+        <!-- Due Date -->
+        <div class="mb-4">
+          <label for="dueDate" class="form-label fw-semibold">⏳ Due Date</label>
+          <input
+            type="date"
+            id="dueDate"
+            class="form-control shadow-sm"
+            [(ngModel)]="task.dueDate"
+            name="dueDate"
+            [min]="task.createdAt"
+            required
+          />
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <button type="submit" class="btn btn-success btn-lg px-4">
+            💾 {{ isEdit ? 'Update' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="cancel()">
+            🔙 Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

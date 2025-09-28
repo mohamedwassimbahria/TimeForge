@@ -1,0 +1,117 @@
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4 border-0">
+    <div class="card-body p-5">
+      <h2 class="text-center mb-4 text-primary fw-bold">
+        {{ isEdit ? '🛠️ Update' : '🆕 Create' }} a Project
+      </h2>
+
+      <form #projectForm="ngForm" (ngSubmit)="saveProject()" novalidate>
+
+        <!-- Title -->
+        <div class="mb-4">
+          <label for="title" class="form-label fw-semibold">🏷️ Project Title</label>
+          <input
+            type="text"
+            id="title"
+            class="form-control shadow-sm"
+            [(ngModel)]="project.title"
+            name="title"
+            required
+            minlength="3"
+            maxlength="50"
+            placeholder="e.g., E-learning Platform"
+            #titleCtrl="ngModel"
+            [class.is-invalid]="titleCtrl.invalid && titleCtrl.touched"
+          />
+          <div class="invalid-feedback" *ngIf="titleCtrl.invalid && titleCtrl.touched">
+            <p *ngIf="titleCtrl.errors?.['required']">Project title is required.</p>
+            <p *ngIf="titleCtrl.errors?.['minlength']">Minimum 3 characters required.</p>
+            <p *ngIf="titleCtrl.errors?.['maxlength']">Maximum 50 characters allowed.</p>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+          <label for="description" class="form-label fw-semibold">📝 Description</label>
+          <textarea
+            id="description"
+            class="form-control shadow-sm"
+            rows="3"
+            [(ngModel)]="project.description"
+            name="description"
+            placeholder="Describe your project in a few sentences"
+            required
+            minlength="10"
+            #descCtrl="ngModel"
+            [class.is-invalid]="descCtrl.invalid && descCtrl.touched"
+          ></textarea>
+          <div class="invalid-feedback" *ngIf="descCtrl.invalid && descCtrl.touched">
+            <p *ngIf="descCtrl.errors?.['required']">Description is required.</p>
+            <p *ngIf="descCtrl.errors?.['minlength']">Minimum 10 characters required.</p>
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="mb-4">
+          <label for="category" class="form-label fw-semibold">📂 Category</label>
+          <select
+            id="category"
+            class="form-select shadow-sm"
+            [(ngModel)]="project.category"
+            name="category"
+            required
+          >
+            <option value="" disabled selected>Choose a category</option>
+            <option value="SOFTWARE_DEVELOPMENT">💻 SOFTWARE DEVELOPMENT</option>
+            <option value="MARKETING">📢 MARKETING</option>
+            <option value="EDUCATION">🎓 EDUCATION</option>
+            <option value="RESEARCH">🔬 RESEARCH</option>
+            <option value="FINANCE">💰 FINANCE</option>
+            <option value="DESIGN">🎨 DESIGN</option>
+            <option value="HEALTHCARE">🏥 HEALTHCARE</option>
+            <option value="CONSTRUCTION">🏗️ CONSTRUCTION</option>
+            <option value="OTHER">🔧 OTHER</option>
+          </select>
+        </div>
+
+        <!-- Start Date -->
+        <div class="mb-4">
+          <label for="startDate" class="form-label fw-semibold">📅 Start Date</label>
+          <input
+            type="date"
+            id="startDate"
+            class="form-control shadow-sm"
+            [(ngModel)]="project.startDate"
+            name="startDate"
+            required
+          />
+        </div>
+
+        <!-- End Date -->
+        <div class="mb-4">
+          <label for="endDate" class="form-label fw-semibold">⏳ End Date</label>
+          <input
+            type="date"
+            id="endDate"
+            class="form-control shadow-sm"
+            [(ngModel)]="project.endDate"
+            name="endDate"
+            [min]="project.startDate"
+            required
+          />
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-center gap-3 mt-4">
+          <button type="submit" class="btn btn-success btn-lg px-4" [disabled]="projectForm.invalid">
+            💾 {{ isEdit ? 'Update' : 'Save' }}
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4" (click)="router.navigate(['/projects'])">
+            ❌ Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

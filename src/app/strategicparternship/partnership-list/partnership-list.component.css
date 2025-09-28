@@ -1,0 +1,58 @@
+/* src/app/components/list-partnership/list-partnership.component.css */
+.table {
+  font-size: 0.9rem;
+}
+
+.table th {
+  font-weight: 500;
+  background-color: #f8f9fa;
+}
+
+.badge {
+  font-weight: normal;
+}
+
+.btn-group-sm .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
+.alert {
+  margin-top: 20px;
+}
+/* End Date Column Styling */
+.text-nowrap {
+  white-space: nowrap;
+}
+
+/* Expired Badge */
+.badge.bg-danger {
+  font-size: 0.65em;
+  padding: 0.2em 0.4em;
+  vertical-align: middle;
+}
+
+/* Ongoing Text */
+.text-muted {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* Status Badges */
+.badge.bg-success, .badge.bg-warning {
+  padding: 0.35em 0.65em;
+  font-weight: 500;
+}
+
+/* Table Cell Alignment */
+.align-middle {
+  vertical-align: middle !important;
+}

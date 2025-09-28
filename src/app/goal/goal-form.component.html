@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="card mx-auto" style="max-width: 600px; padding: 20px;">
+    <h2 class="text-center mb-4">{{ isEdit ? 'Update' : 'Create' }} un Goal</h2>
+
+    <!-- Titre -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Title</label>
+      <input type="text" class="form-control" [(ngModel)]="goal.title" required minlength="3" />
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Description</label>
+      <textarea class="form-control" [(ngModel)]="goal.description" required minlength="5"></textarea>
+    </div>
+
+
+
+    <hr />
+    <h5 class="text-primary">New Categorie</h5>
+
+    <!-- Libellé -->
+    <div class="mb-3">
+      <label class="form-label">Type</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="newCategory.libelle"
+             (blur)="checkLibelleAndEstimate()"
+             required />
+    </div>
+
+    <!-- Affichage estimation -->
+    <div class="alert alert-info" *ngIf="showEstimate">
+      ✅ Mean Estimated for '{{ newCategory.libelle }}' : <strong>{{ estimatedDuration }} days</strong>
+    </div>
+
+    <!-- Date de début -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">Start Date</label>
+      <input type="date" class="form-control" [(ngModel)]="goal.startDate" />
+    </div>
+
+    <!-- Date de fin -->
+    <div class="mb-3">
+      <label class="form-label fw-bold">End Date</label>
+      <input type="date" class="form-control" [(ngModel)]="goal.endDate"  />
+    </div>
+    <!-- Durée -->
+    <div class="mb-3">
+      <label class="form-label">Duration</label>
+      <input type="text" class="form-control" [(ngModel)]="newCategory.description" />
+    </div>
+
+
+    <!-- Message d'erreur -->
+    <div class="alert alert-danger" *ngIf="serverError">
+      {{ serverError }}
+    </div>
+
+    <!-- Boutons -->
+    <div class="text-center mt-4">
+      <button type="button" class="btn btn-success me-3" (click)="saveGoal()">💾 Save</button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/goals'])">❌ Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+/* src/app/components/time-tracker/time-tracker.component.css */
+.time-tracker-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.timer-controls {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.time-logs {
+  margin-top: 30px;
+}
+
+table {
+  width: 100%;
+}

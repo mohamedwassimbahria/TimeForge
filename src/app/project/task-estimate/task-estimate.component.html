@@ -1,0 +1,63 @@
+<div class="container">
+    <!-- Title -->
+    <h2 class="title">
+      🔮 Task Estimator
+    </h2>
+    <p class="subtitle">
+      Get intelligent suggestions for tasks based on your project idea.
+    </p>
+  
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="predictTasks()" class="form">
+      <!-- Description Field -->
+      <div>
+        <label for="description" class="label">
+          📝 Describe your Project
+        </label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="6"
+          class="textarea"
+          placeholder="e.g., Build a task manager with drag & drop, deadlines, and team collaboration features."
+        ></textarea>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button
+          type="submit"
+          [disabled]="form.invalid || loading"
+          class="submit-button"
+        >
+          🔍 Estimate Tasks
+        </button>
+      </div>
+    </form>
+  
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="loading-indicator">
+      <dotlottie-player
+        src="https://lottie.host/45f3c123-745b-425c-8491-7aaabf67c70c/jOtTL2NQky.lottie"
+        background="transparent"
+        speed="2"
+        style="width: 140px; height: 140px"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
+  
+    <!-- Suggested Tasks -->
+    <div *ngIf="suggestedTasks.length > 0" class="suggested-tasks">
+      <h3 class="suggested-tasks-title">📌 Suggested Tasks</h3>
+      <ul class="suggested-tasks-list">
+        <li *ngFor="let task of suggestedTasks">{{ task }}</li>
+      </ul>
+    </div>
+  
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      ⚠️ {{ errorMessage }}
+    </div>
+  </div>
+  
